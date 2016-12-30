@@ -8,12 +8,21 @@ class SearchBar extends Component {
   }
     
   render() {
-       return (
-    <div className="search-bar">
-      <input onChange={event => this.setState({ term: event.target.value })} />
-    </div>
+    return (
+      <div className="search-bar">
+        <input onChange={event => this.onInputChange(event.target.value)} />
+      </div>
     );
   } 
+
+//Inside of here, we want to set the state with the term
+//and we want to call the callback that we got from index (from app)
+  onInputChange(term) {
+    this.setState({term});
+    this.props.onSearchTermChange(term);
+  }
 }
+
+
 
 export default SearchBar;

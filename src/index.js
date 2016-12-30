@@ -16,8 +16,14 @@ class App extends Component {
       videos: [],
       selectedVideo: null
     };
-    
-    YTSearch({key: API_KEY, term: 'italy'}, (videos) => {
+
+    this.videoSearch('surfboards');    
+  }
+
+  // We're going to define our callback by making a new method on our app:
+  //term is whatever the user types into the input
+  videoSearch(term) {
+    YTSearch({key: API_KEY, term: term}, (videos) => {
       this.setState({ 
         videos: videos,
         selectedVideo: videos[0]
@@ -28,7 +34,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <SearchBar />
+        <SearchBar onSearchTermChange={term => this.videoSearch(term)} />
         <VideoDetail video={this.state.selectedVideo} />
         <VideoList 
           //We defined a function that takes a video and defines it on app's state in line below:
