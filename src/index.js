@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
@@ -32,9 +33,11 @@ class App extends Component {
   }
 
   render() {
+    const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
+    //We created a function here and passed it to debounce. Debounce takes inner function (this.videoSearch(term), and it returns a new function that can only be called once every 300 milliseconds.
     return (
       <div>
-        <SearchBar onSearchTermChange={term => this.videoSearch(term)} />
+        <SearchBar onSearchTermChange={videoSearch} />
         <VideoDetail video={this.state.selectedVideo} />
         <VideoList 
           //We defined a function that takes a video and defines it on app's state in line below:
